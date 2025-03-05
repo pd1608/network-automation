@@ -7,7 +7,7 @@ repo = git.Repo("/home/netman/Documents/network-automation")
 print("current git status: ")
 print(repo.git.status())
 
-repo.index.add(["cpu_utilization.jpg", "router_data.txt"])
+#repo.index.add(["cpu_utilization.jpg", "router_data.txt"])
 
 repo.git.add('--all')
 
