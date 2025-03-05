@@ -2,6 +2,8 @@
 
 import git
 
+
+
 repo = git.Repo("/home/netman/Documents/network-automation")
 
 print("current git status: ")
