@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import json
 from easysnmp import Session
 
-# Define SNMP credentials and device IPs
 DEVICES = {
     "R1": "10.0.2.1",
     "R2": "10.0.1.4",
@@ -15,7 +14,6 @@ DEVICES = {
 SNMP_COMMUNITY_STRING = "public"
 SNMP_PROTOCOL_VERSION = 2
 
-# MIB Names for Cisco IOS
 MIB_IF_DESCRIPTION = "IF-MIB::ifDescr"  
 MIB_IPV4_ADDRESS = "IP-MIB::ipAdEntAddr"  
 MIB_IPV4_IF_INDEX = "IP-MIB::ipAdEntIfIndex"  
@@ -23,23 +21,19 @@ MIB_IPV4_IF_INDEX = "IP-MIB::ipAdEntIfIndex"
 # MIB_IPV6_IF_INDEX = "IPV6-MIB::ipv6AddrIfIndex"  
 MIB_IF_OPER_STATUS = "IF-MIB::ifOperStatus"  
 
-# Function to fetch SNMP data
 def retrieve_snmp_data(device_name, device_ip):
     try:
         session = Session(hostname=device_ip, community=SNMP_COMMUNITY_STRING, version=SNMP_PROTOCOL_VERSION)
 
-        # Get Interface Descriptions
         interface_descriptions = {}
         for entry in session.walk(MIB_IF_DESCRIPTION):
             interface_descriptions[entry.oid_index] = entry.value  # ifIndex -> Interface Name
 
-        # Get Interface Operational Status (Up/Down)
         interface_status = {}
         for entry in session.walk(MIB_IF_OPER_STATUS):
             interface_name = interface_descriptions.get(entry.oid_index, f"Interface-{entry.oid_index}")
             interface_status[interface_name] = "Up" if entry.value == "1" else "Down"
 
-        # Get IPv4 Addresses and Interface Mapping
         ipv4_addresses = {}
         ipv4_to_interface_map = {}
         for entry in session.walk(MIB_IPV4_ADDRESS):
@@ -83,14 +77,12 @@ def retrieve_snmp_data(device_name, device_ip):
         print(f"Error retrieving SNMP data from {device_name}: {e}")
         return None
 
-# Collect data from all devices
 all_device_data = {}
 for device_name, device_ip in DEVICES.items():
     data = retrieve_snmp_data(device_name, device_ip)
     if data:
         all_device_data.update(data)
 
-# Save to JSON file
 with open("router_data.txt", "w") as f:
     json.dump(all_device_data, f, indent=4)
 
@@ -99,7 +91,6 @@ print("SNMP data successfully saved to router_data.txt")
 
 
 def monitor_cpu_utilization(router_ip, duration=120, interval=5):
-    # Easysnmp session initialization
     session = Session(hostname=router_ip, community='public', version=2)
 
     cpu_usage_data = []
@@ -108,7 +99,6 @@ def monitor_cpu_utilization(router_ip, duration=120, interval=5):
     OID_CPU_UTILIZATION = "1.3.6.1.4.1.9.2.1.58.0"
 
     while time.time() - start_time < duration:
-        # Fetch the CPU utilization using SNMP GET
         cpu_utilization_value = session.get(OID_CPU_UTILIZATION).value
         current_time = round(time.time() - start_time, 2)
 
@@ -118,7 +108,7 @@ def monitor_cpu_utilization(router_ip, duration=120, interval=5):
         print(f"Time: {current_time}s - CPU Usage: {cpu_utilization_value}%")
         time.sleep(interval)
 
-    # Plot CPU Utilization
+#graph plotting
     plt.figure(figsize=(10, 6))
     plt.plot(time_stamps, cpu_usage_data, marker='x', linestyle='--', color='darkorange', label="CPU Usage")
     plt.xlabel("Time (seconds)", fontsize=12)
@@ -127,7 +117,6 @@ def monitor_cpu_utilization(router_ip, duration=120, interval=5):
     plt.legend(loc="upper right", fontsize=10)
     plt.grid(True, linestyle=':', color='gray')
 
-    # Save figure
     plt.savefig("cpu_utilization.jpg")
     print("CPU utilization graph saved as cpu_utilization.jpg")
 
