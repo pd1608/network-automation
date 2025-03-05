@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
+'''SSH keys are already configured for this linux box with my github account. Hence github authentication is not required.
+Also, /home/netman/Documents/network-automation directory is a clone of the network-automation repository. Hence, git init is performed automatically for this 
+folder '''
+
 import git
-
-
 
 
 repo = git.Repo("/home/netman/Documents/network-automation")
