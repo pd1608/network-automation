@@ -13,6 +13,7 @@ repo.git.add('--all')
 print(repo.git.status())
 
 repo.index.commit("Updated CPU utilization and router data on network-automation repository")
+print("pushing changes to network-automation repo")
 
 origin = repo.remote(name="origin")
 origin.push()
