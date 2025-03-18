@@ -50,7 +50,7 @@
             },
             "FastEthernet1/0": {
                 "ipv4": [
-                    "10.0.2.9"
+                    "10.0.2.6"
                 ]
             },
             "FastEthernet1/1": {
@@ -92,7 +92,7 @@
             },
             "FastEthernet1/0": {
                 "ipv4": [
-                    "10.0.2.8"
+                    "10.0.2.7"
                 ]
             },
             "FastEthernet1/1": {
@@ -171,48 +171,6 @@
             "VoIP-Null0": "Up",
             "Null0": "Up",
             "Tunnel0": "Up"
-        }
-    },
-    "R5": {
-        "ip_addresses": {
-            "FastEthernet0/0": {
-                "ipv4": [
-                    "10.0.1.1"
-                ]
-            },
-            "FastEthernet1/0": {
-                "ipv4": [
-                    "N/A"
-                ]
-            },
-            "FastEthernet1/1": {
-                "ipv4": [
-                    "N/A"
-                ]
-            },
-            "GigabitEthernet2/0": {
-                "ipv4": [
-                    "N/A"
-                ]
-            },
-            "VoIP-Null0": {
-                "ipv4": [
-                    "N/A"
-                ]
-            },
-            "Null0": {
-                "ipv4": [
-                    "N/A"
-                ]
-            }
-        },
-        "interface_status": {
-            "FastEthernet0/0": "Up",
-            "FastEthernet1/0": "Down",
-            "FastEthernet1/1": "Down",
-            "GigabitEthernet2/0": "Down",
-            "VoIP-Null0": "Up",
-            "Null0": "Up"
         }
     }
 }
